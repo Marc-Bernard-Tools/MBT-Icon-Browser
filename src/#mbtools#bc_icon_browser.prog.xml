@@ -584,6 +584,12 @@
     </item>
     <item>
      <ID>S</ID>
+     <KEY>P_DISP_P</KEY>
+     <ENTRY>Display All Icon Properties</ENTRY>
+     <LENGTH>35</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>P_ID</KEY>
      <ENTRY>Sort by ID</ENTRY>
      <LENGTH>18</LENGTH>
@@ -593,6 +599,12 @@
      <KEY>P_NAME</KEY>
      <ENTRY>Sort by Name</ENTRY>
      <LENGTH>20</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_ORIG</KEY>
+     <ENTRY>Sort by Group Member</ENTRY>
+     <LENGTH>28</LENGTH>
     </item>
     <item>
      <ID>S</ID>
@@ -623,6 +635,12 @@
      <KEY>S_NAME</KEY>
      <ENTRY>Icon Name</ENTRY>
      <LENGTH>17</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_TEXT</KEY>
+     <ENTRY>Icon Description</ENTRY>
+     <LENGTH>24</LENGTH>
     </item>
    </TPOOL>
   </asx:values>
