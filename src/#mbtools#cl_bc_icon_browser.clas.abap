@@ -19,35 +19,36 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
     TYPES:
       ty_group_range TYPE RANGE OF icon-i_group .
     TYPES:
-      ty_icon_range  TYPE RANGE OF icon-id .
+      ty_icon_dir_range  TYPE RANGE OF icon-id .
     TYPES:
       ty_name_range  TYPE RANGE OF icon-name .
     TYPES:
       ty_text_range  TYPE RANGE OF icont-shorttext .
 
-    CONSTANTS c_version TYPE string VALUE '1.0.0' ##NO_TEXT.
-    CONSTANTS c_title TYPE string VALUE 'MBT Icon Browser' ##NO_TEXT.
-    CONSTANTS c_description TYPE string VALUE 'A Simple Tool to Query and Display Icons Available in SAP GUI' ##NO_TEXT.
-    CONSTANTS c_download_id TYPE i VALUE 4413 ##NO_TEXT.
+    CONSTANTS:
+      c_version     TYPE string VALUE '1.0.0' ##NO_TEXT,
+      c_title       TYPE string VALUE 'MBT Icon Browser' ##NO_TEXT,
+      c_description TYPE string VALUE 'A Simple Tool to Query and Display Icons Available in SAP GUI' ##NO_TEXT,
+      c_download_id TYPE i VALUE 4413 ##NO_TEXT.
 
     METHODS constructor .
     METHODS initialize
       IMPORTING
-        !i_classes TYPE ty_class_range
-        !i_groups  TYPE ty_group_range
-        !i_icons   TYPE ty_icon_range
-        !i_names   TYPE ty_name_range
-        !i_texts   TYPE ty_text_range
-        !i_name    TYPE abap_bool
-        !i_id      TYPE abap_bool
-        !i_text    TYPE abap_bool
-        !i_disp_n  TYPE abap_bool
-        !i_disp_i  TYPE abap_bool
-        !i_disp_p  TYPE abap_bool .
+        !ir_classes TYPE ty_class_range
+        !ir_groups  TYPE ty_group_range
+        !ir_icons   TYPE ty_icon_dir_range
+        !ir_names   TYPE ty_name_range
+        !ir_texts   TYPE ty_text_range
+        !iv_name    TYPE abap_bool
+        !iv_id      TYPE abap_bool
+        !iv_text    TYPE abap_bool
+        !iv_disp_n  TYPE abap_bool
+        !iv_disp_i  TYPE abap_bool
+        !iv_disp_p  TYPE abap_bool .
     METHODS pbo .
     METHODS pai
       IMPORTING
-        !i_ok_code TYPE sy-ucomm .
+        !iv_ok_code TYPE sy-ucomm .
     METHODS screen .
   PROTECTED SECTION.
 
@@ -59,47 +60,47 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
       FOR /mbtools/if_manifest~descriptor .
 
     TYPES:
-      BEGIN OF ty_icon.
+      BEGIN OF ty_icon_dir.
         INCLUDE TYPE icon.
       TYPES:
         shorttext TYPE icont-shorttext,
         quickinfo TYPE icont-quickinfo,
-      END OF ty_icon .
+      END OF ty_icon_dir .
 
-    DATA mr_tool TYPE REF TO /mbtools/cl_tools.
-    DATA mr_tree TYPE REF TO /mbtools/cl_tree .
+    DATA mo_tool TYPE REF TO /mbtools/cl_tools.
+    DATA mo_tree TYPE REF TO /mbtools/cl_tree .
     DATA:
-      mt_icon TYPE TABLE OF ty_icon .
-    DATA m_classes TYPE ty_class_range .
-    DATA m_groups TYPE ty_group_range .
-    DATA m_icons TYPE ty_icon_range .
-    DATA m_names TYPE ty_name_range .
-    DATA m_texts TYPE ty_text_range .
-    DATA m_name TYPE abap_bool .
-    DATA m_id TYPE abap_bool .
-    DATA m_text TYPE abap_bool .
-    DATA m_disp_n TYPE abap_bool .
-    DATA m_disp_i TYPE abap_bool .
-    DATA m_disp_p TYPE abap_bool .
+      mt_icon_dir TYPE TABLE OF ty_icon_dir .
+    DATA mr_classes TYPE ty_class_range .
+    DATA mr_groups TYPE ty_group_range .
+    DATA mr_icons TYPE ty_icon_dir_range .
+    DATA mr_names TYPE ty_name_range .
+    DATA mr_texts TYPE ty_text_range .
+    DATA mv_name TYPE abap_bool .
+    DATA mv_id TYPE abap_bool .
+    DATA mv_text TYPE abap_bool .
+    DATA mv_disp_n TYPE abap_bool .
+    DATA mv_disp_i TYPE abap_bool .
+    DATA mv_disp_p TYPE abap_bool .
 
     METHODS process_selection .
     METHODS process_main .
     METHODS process_class
       IMPORTING
         !is_class TYPE icon_cl
-        !i_level  TYPE i .
+        !iv_level TYPE i .
     METHODS process_group
       IMPORTING
         !is_group TYPE icon_gr
-        !i_level  TYPE i .
+        !iv_level TYPE i .
     METHODS process_icon
       IMPORTING
-        !is_icon TYPE ty_icon
-        !i_level TYPE i .
+        !is_icon  TYPE ty_icon_dir
+        !iv_level TYPE i .
     METHODS process_icon_properties
       IMPORTING
-        !is_icon TYPE ty_icon
-        !i_level TYPE i .
+        !is_icon  TYPE ty_icon_dir
+        !iv_level TYPE i .
 ENDCLASS.
 
 
@@ -108,28 +109,28 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
 
   METHOD constructor.
-    CREATE OBJECT mr_tool EXPORTING i_tool = me.
+    CREATE OBJECT mo_tool EXPORTING io_tool = me.
 
-    apack_manifest = mr_tool->apack_manifest.
-    mbt_manifest   = mr_tool->mbt_manifest.
+    apack_manifest = mo_tool->apack_manifest.
+    mbt_manifest   = mo_tool->mbt_manifest.
   ENDMETHOD.
 
 
   METHOD initialize.
 
-    CREATE OBJECT mr_tree.
+    CREATE OBJECT mo_tree.
 
-    m_classes = i_classes.
-    m_groups  = i_groups.
-    m_icons   = i_icons.
-    m_names   = i_names.
-    m_texts   = i_texts.
-    m_name    = i_name.
-    m_id      = i_id.
-    m_text    = i_text.
-    m_disp_n  = i_disp_n.
-    m_disp_i  = i_disp_i.
-    m_disp_p  = i_disp_p.
+    mr_classes = ir_classes.
+    mr_groups  = ir_groups.
+    mr_icons   = ir_icons.
+    mr_names   = ir_names.
+    mr_texts   = ir_texts.
+    mv_name    = iv_name.
+    mv_id      = iv_id.
+    mv_text    = iv_text.
+    mv_disp_n  = iv_disp_n.
+    mv_disp_i  = iv_disp_i.
+    mv_disp_p  = iv_disp_p.
 
     process_selection( ).
 
@@ -139,35 +140,39 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
 
   METHOD pai.
-    mr_tree->pai( i_ok_code = i_ok_code ).
+
+    mo_tree->pai( iv_ok_code = iv_ok_code ).
+
   ENDMETHOD.
 
 
   METHOD pbo.
-    mr_tree->display( ).
+
+    mo_tree->display( ).
+
   ENDMETHOD.
 
 
   METHOD process_class.
 
     DATA:
-      lr_level TYPE REF TO /mbtools/cl_tree_level,
+      lo_level TYPE REF TO /mbtools/cl_tree_level,
       ls_group TYPE icon_gr.
 
-    READ TABLE mt_icon TRANSPORTING NO FIELDS
+    READ TABLE mt_icon_dir TRANSPORTING NO FIELDS
       WITH KEY i_class = is_class-id.
     CHECK sy-subrc = 0.
 
-    CREATE OBJECT lr_level EXPORTING ir_app = mr_tree.
+    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
 
-    mr_tree->add_detail(
-      i_icon  = icon_folder
-      i_title = 'Icon Class'
-      i_text  = is_class-name
-      i_value = is_class-id
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_icon  = icon_folder
+      iv_title = 'Icon Class'
+      iv_text  = is_class-name
+      iv_value = is_class-id
+      iv_level = lo_level->level ).
 
-    lr_level->next( ).
+    lo_level->next( ).
 
     SELECT * FROM icon_gr INTO ls_group
       WHERE langu = sy-langu AND class = is_class-id
@@ -175,11 +180,11 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
       process_group(
         is_group = ls_group
-        i_level = lr_level->level ).
+        iv_level = lo_level->level ).
 
     ENDSELECT.
 
-    lr_level->back( ).
+    lo_level->back( ).
 
   ENDMETHOD.
 
@@ -187,34 +192,34 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD process_group.
 
     DATA:
-      lr_level TYPE REF TO /mbtools/cl_tree_level,
-      ls_icon  TYPE ty_icon.
+      lo_level TYPE REF TO /mbtools/cl_tree_level,
+      ls_icon  TYPE ty_icon_dir.
 
-    READ TABLE mt_icon TRANSPORTING NO FIELDS
+    READ TABLE mt_icon_dir TRANSPORTING NO FIELDS
       WITH KEY i_class = is_group-class i_group = is_group-id.
     CHECK sy-subrc = 0.
 
-    CREATE OBJECT lr_level EXPORTING ir_app = mr_tree.
+    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
 
-    mr_tree->add_detail(
-      i_icon  = icon_folder
-      i_title = 'Icon Group'
-      i_text  = is_group-name
-      i_value = is_group-id
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_icon  = icon_folder
+      iv_title = 'Icon Group'
+      iv_text  = is_group-name
+      iv_value = is_group-id
+      iv_level = lo_level->level ).
 
-    lr_level->next( ).
+    lo_level->next( ).
 
-    LOOP AT mt_icon INTO ls_icon
+    LOOP AT mt_icon_dir INTO ls_icon
       WHERE i_class = is_group-class AND i_group = is_group-id.
 
       process_icon(
-        is_icon = ls_icon
-        i_level = lr_level->level ).
+        is_icon  = ls_icon
+        iv_level = lo_level->level ).
 
     ENDLOOP.
 
-    lr_level->back( ).
+    lo_level->back( ).
 
   ENDMETHOD.
 
@@ -222,32 +227,32 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD process_icon.
 
     DATA:
-      lr_level TYPE REF TO /mbtools/cl_tree_level.
+      lo_level TYPE REF TO /mbtools/cl_tree_level.
 
-    CREATE OBJECT lr_level EXPORTING ir_app = mr_tree.
+    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
 
-    IF m_disp_n = abap_true.
-      lr_level->value = is_icon-name.
-    ELSEIF m_disp_i = abap_true.
-      lr_level->value = is_icon-id.
+    IF mv_disp_n = abap_true.
+      lo_level->value = is_icon-name.
+    ELSEIF mv_disp_i = abap_true.
+      lo_level->value = is_icon-id.
     ELSE.
-      lr_level->value = ''.
+      lo_level->value = ''.
     ENDIF.
 
-    mr_tree->add_detail(
-      i_icon  = is_icon-id
-      i_title = 'Icon'
-      i_text  = is_icon-shorttext
-      i_value = lr_level->value
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_icon  = is_icon-id
+      iv_title = 'Icon'
+      iv_text  = is_icon-shorttext
+      iv_value = lo_level->value
+      iv_level = lo_level->level ).
 
-    lr_level->next( ).
+    lo_level->next( ).
 
     process_icon_properties(
-      is_icon = is_icon
-      i_level = lr_level->level ).
+      is_icon  = is_icon
+      iv_level = lo_level->level ).
 
-    lr_level->back( ).
+    lo_level->back( ).
 
   ENDMETHOD.
 
@@ -255,81 +260,81 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD process_icon_properties.
 
     DATA:
-      lr_level TYPE REF TO /mbtools/cl_tree_level.
+      lo_level TYPE REF TO /mbtools/cl_tree_level.
 
-    CHECK m_disp_p = abap_true.
+    CHECK mv_disp_p = abap_true.
 
-    CREATE OBJECT lr_level EXPORTING ir_app = mr_tree.
+    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
 
-    mr_tree->add_detail(
-      i_title = 'Icon Name'
-      i_text  = is_icon-name
-      i_value = is_icon-name
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Icon Name'
+      iv_text  = is_icon-name
+      iv_value = is_icon-name
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Icon ID'
-      i_text  = is_icon-id+1(2)
-      i_value = is_icon-id
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Icon ID'
+      iv_text  = is_icon-id+1(2)
+      iv_value = is_icon-id
+      iv_level = lo_level->level ).
 
     IF is_icon-locked = abap_true.
-      mr_tree->add_detail(
-        i_icon  = icon_locked
-        i_title = 'Locked'
-        i_level = lr_level->level ).
+      mo_tree->add_detail(
+        iv_icon  = icon_locked
+        iv_title = 'Locked'
+        iv_level = lo_level->level ).
     ENDIF.
 
-    lr_level->text = is_icon-internal.
-    REPLACE ALL OCCURRENCES OF '@' IN lr_level->text WITH ''.
+    lo_level->text = is_icon-internal.
+    REPLACE ALL OCCURRENCES OF '@' IN lo_level->text WITH ''.
 
-    mr_tree->add_detail(
-      i_title = 'Icon Internal Format'
-      i_text  = lr_level->text
-      i_value = is_icon-internal
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Icon Internal Format'
+      iv_text  = lo_level->text
+      iv_value = is_icon-internal
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Quick Info'
-      i_text  = is_icon-quickinfo
-      i_value = is_icon-quickinfo
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Quick Info'
+      iv_text  = is_icon-quickinfo
+      iv_value = is_icon-quickinfo
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Output Length'
-      i_text  = is_icon-oleng
-      i_value = is_icon-oleng
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Output Length'
+      iv_text  = is_icon-oleng
+      iv_value = is_icon-oleng
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Suitable for Pushbutton'
-      i_text  = is_icon-button
-      i_value = is_icon-button
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Suitable for Pushbutton'
+      iv_text  = is_icon-button
+      iv_value = is_icon-button
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Suitable for Status Display'
-      i_text  = is_icon-status
-      i_value = is_icon-status
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Suitable for Status Display'
+      iv_text  = is_icon-status
+      iv_value = is_icon-status
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Suitable for Message'
-      i_text  = is_icon-message
-      i_value = is_icon-message
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Suitable for Message'
+      iv_text  = is_icon-message
+      iv_value = is_icon-message
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Suitable for Function Key'
-      i_text  = is_icon-function
-      i_value = is_icon-function
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Suitable for Function Key'
+      iv_text  = is_icon-function
+      iv_value = is_icon-function
+      iv_level = lo_level->level ).
 
-    mr_tree->add_detail(
-      i_title = 'Suitable for Key Word'
-      i_text  = is_icon-textfield
-      i_value = is_icon-textfield
-      i_level = lr_level->level ).
+    mo_tree->add_detail(
+      iv_title = 'Suitable for Key Word'
+      iv_text  = is_icon-textfield
+      iv_value = is_icon-textfield
+      iv_level = lo_level->level ).
 
   ENDMETHOD.
 
@@ -340,24 +345,24 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
       ls_icon_cl TYPE icon_cl.
 
     " Add top node
-    CALL METHOD mr_tree->add_top_node
+    CALL METHOD mo_tree->add_top_node
       EXPORTING
-        i_icon  = icon_folder
-        i_title = 'SAP GUI Icons'.
+        iv_icon  = icon_folder
+        iv_title = 'SAP GUI Icons'.
 
     " Process
     SELECT * FROM icon_cl INTO ls_icon_cl
-      WHERE id IN m_classes AND langu = sy-langu
+      WHERE id IN mr_classes AND langu = sy-langu
       ORDER BY PRIMARY KEY.
 
       process_class(
         is_class = ls_icon_cl
-        i_level  = 0 ).
+        iv_level  = 1 ).
 
     ENDSELECT.
 
     " Expand complete tree
-    mr_tree->expand_all( ).
+    mo_tree->expand_all( ).
 
   ENDMETHOD.
 
@@ -365,42 +370,42 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD process_selection.
 
     DATA:
-      ls_icon_sel TYPE ty_icon,
+      ls_icon_dir TYPE ty_icon_dir,
       ls_icon     TYPE icon,
       ls_icont    TYPE icont.
 
-    CLEAR mt_icon.
+    CLEAR mt_icon_dir.
 
     SELECT * FROM icon INTO ls_icon
-      WHERE i_class IN m_classes
-        AND i_group IN m_groups
-        AND id      IN m_icons
-        AND name    IN m_names
+      WHERE i_class IN mr_classes
+        AND i_group IN mr_groups
+        AND id      IN mr_icons
+        AND name    IN mr_names
       ORDER BY i_class i_group i_member.
 
-      CLEAR ls_icon_sel.
-      MOVE-CORRESPONDING ls_icon TO ls_icon_sel.
+      CLEAR ls_icon_dir.
+      MOVE-CORRESPONDING ls_icon TO ls_icon_dir.
 
       SELECT SINGLE * FROM icont INTO ls_icont
         WHERE langu = sy-langu AND id = ls_icon-id.
       IF sy-subrc = 0.
-        MOVE-CORRESPONDING ls_icont TO ls_icon_sel.
-        IF NOT ls_icont-shorttext IN m_texts.
+        MOVE-CORRESPONDING ls_icont TO ls_icon_dir.
+        IF NOT ls_icont-shorttext IN mr_texts.
           CONTINUE.
         ENDIF.
-      ELSEIF NOT m_texts IS INITIAL.
+      ELSEIF NOT mr_texts IS INITIAL.
         CONTINUE.
       ENDIF.
-      APPEND ls_icon_sel TO mt_icon.
+      APPEND ls_icon_dir TO mt_icon_dir.
 
     ENDSELECT.
 
-    IF m_name = abap_true.
-      SORT mt_icon BY i_class i_group name.
-    ELSEIF m_id = abap_true.
-      SORT mt_icon BY i_class i_group id.
-    ELSEIF m_text = abap_true.
-      SORT mt_icon BY i_class i_group shorttext.
+    IF mv_name = abap_true.
+      SORT mt_icon_dir BY i_class i_group name.
+    ELSEIF mv_id = abap_true.
+      SORT mt_icon_dir BY i_class i_group id.
+    ELSEIF mv_text = abap_true.
+      SORT mt_icon_dir BY i_class i_group shorttext.
     ENDIF.
 
   ENDMETHOD.
@@ -409,22 +414,6 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD screen.
 
 *   Place holder...
-
-*    DATA l_show TYPE abap_bool.
-*
-*    LOOP AT SCREEN.
-*      l_show = abap_true.
-*
-*      IF l_show = abap_true.
-*        screen-active = '1'.
-*        screen-input = '1'.
-*      ELSE.
-*        screen-active = '0'.
-*        screen-input = '0'.
-*      ENDIF.
-*
-*      MODIFY SCREEN.
-*    ENDLOOP.
 
   ENDMETHOD.
 ENDCLASS.

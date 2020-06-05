@@ -1,13 +1,12 @@
 ************************************************************************
-* /MBTOOLS/BC_ICON_BROWSER
+* /MBTOOLS/ICON_BROWSER
 * MBT Icon Browser
 *
 * This tool lists all SAP GUI icons in a tree control
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-
-REPORT /mbtools/bc_icon_browser.
+REPORT /mbtools/icon_browser.
 
 TABLES:
   sscrfields, icon, icont.
@@ -78,7 +77,8 @@ TYPES:
 
 INCLUDE /mbtools/bc_screen_data.
 
-DATA: gr_app TYPE REF TO /mbtools/cl_bc_icon_browser.
+DATA:
+  go_app TYPE REF TO /mbtools/cl_bc_icon_browser.
 
 *-----------------------------------------------------------------------
 
@@ -114,22 +114,22 @@ AT SELECTION-SCREEN OUTPUT.
 START-OF-SELECTION.
 
   LOG-POINT ID /mbtools/bc
-    SUBKEY gr_tool->get_title( )
+    SUBKEY go_tool->get_title( )
     FIELDS sy-datum sy-uzeit sy-uname.
 
   " Setup tree
-  gr_app->initialize(
-    i_classes = s_class[]
-    i_groups  = s_group[]
-    i_icons   = s_icon[]
-    i_names   = s_name[]
-    i_texts   = s_text[]
-    i_name    = p_name
-    i_id      = p_id
-    i_text    = p_text
-    i_disp_n  = p_disp_n
-    i_disp_i  = p_disp_i
-    i_disp_p  = p_disp_p ).
+  go_app->initialize(
+    ir_classes = s_class[]
+    ir_groups  = s_group[]
+    ir_icons   = s_icon[]
+    ir_names   = s_name[]
+    ir_texts   = s_text[]
+    iv_name    = p_name
+    iv_id      = p_id
+    iv_text    = p_text
+    iv_disp_n  = p_disp_n
+    iv_disp_i  = p_disp_i
+    iv_disp_p  = p_disp_p ).
 
   " Output as ALV tree control
   CALL SCREEN 100.
