@@ -11,7 +11,7 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
 
   PUBLIC SECTION.
 
-    INTERFACES if_apack_manifest .
+    INTERFACES if_apack_manifest.
     INTERFACES /mbtools/if_manifest .
 
     TYPES:
