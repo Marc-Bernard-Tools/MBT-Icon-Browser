@@ -166,7 +166,10 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
       WITH KEY i_class = is_class-id.
     CHECK sy-subrc = 0.
 
-    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
+    CREATE OBJECT lo_level
+      EXPORTING
+        io_tree  = mo_tree
+        iv_level = iv_level.
 
     mo_tree->add_detail(
       iv_icon  = icon_folder
@@ -202,7 +205,10 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
       WITH KEY i_class = is_group-class i_group = is_group-id.
     CHECK sy-subrc = 0.
 
-    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
+    CREATE OBJECT lo_level
+      EXPORTING
+        io_tree  = mo_tree
+        iv_level = iv_level.
 
     mo_tree->add_detail(
       iv_icon  = icon_folder
@@ -232,7 +238,10 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
     DATA:
       lo_level TYPE REF TO /mbtools/cl_tree_level.
 
-    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
+    CREATE OBJECT lo_level
+      EXPORTING
+        io_tree  = mo_tree
+        iv_level = iv_level.
 
     IF mv_disp_n = abap_true.
       lo_level->value = is_icon-name.
@@ -267,7 +276,10 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
     CHECK mv_disp_p = abap_true.
 
-    CREATE OBJECT lo_level EXPORTING io_tree = mo_tree iv_level = iv_level.
+    CREATE OBJECT lo_level
+      EXPORTING
+        io_tree  = mo_tree
+        iv_level = iv_level.
 
     mo_tree->add_detail(
       iv_title = 'Icon Name'
@@ -348,10 +360,9 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
       ls_icon_cl TYPE icon_cl.
 
     " Add top node
-    CALL METHOD mo_tree->add_top_node
-      EXPORTING
-        iv_icon  = icon_folder
-        iv_title = 'SAP GUI Icons'.
+    mo_tree->add_top_node(
+      iv_icon  = icon_folder
+      iv_title = 'SAP GUI Icons' ).
 
     " Process
     SELECT * FROM icon_cl INTO ls_icon_cl
