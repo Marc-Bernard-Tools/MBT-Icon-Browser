@@ -10,6 +10,7 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+    TYPE-POOLS icon .
 
     INTERFACES if_apack_manifest.
     INTERFACES /mbtools/if_manifest .
@@ -28,10 +29,10 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
     CONSTANTS:
       c_version     TYPE string VALUE '1.0.0' ##NO_TEXT,
       c_title       TYPE string VALUE 'MBT Icon Browser' ##NO_TEXT,
-      c_description TYPE string
-                    VALUE 'A Simple Tool to Query, Display, and Download Icons Available in SAP GUI' ##NO_TEXT,
       c_bundle_id   TYPE i VALUE 0 ##NO_TEXT,
-      c_download_id TYPE i VALUE 4413 ##NO_TEXT.
+      c_download_id TYPE i VALUE 4413 ##NO_TEXT,
+      c_description TYPE string
+      VALUE 'A Simple Tool to Query, Display, and Download Icons Available in SAP GUI' ##NO_TEXT.
 
     METHODS constructor .
     METHODS initialize
