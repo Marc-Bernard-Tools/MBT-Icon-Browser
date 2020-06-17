@@ -17,6 +17,9 @@
     "errorNamespace": "^(/MBTOOLS/|LT?CL_|LIF_)",
     "globalConstants": [
       "apack_manifest",
+      "icon_folder",
+      "icon_locked",
+      "icon_color",
       "mbt_manifest"
     ],
     "globalMacros": []
@@ -83,18 +86,7 @@
         "mbt_manifest", 
         "descriptor", 
         "co_file_name", 
-        "co_interface_version",
-        "registry_root",
-        "sub_entries",
-        "values",
-        "internal_key",
-        "parent_key",
-        "entry_id",
-        "regs",
-        "level",
-	"icon",
-	"value",
-	"text" 
+        "co_interface_version"
       ],
       "ignorePatterns": [],
       "ignoreExceptions": true,
@@ -127,7 +119,7 @@
     "empty_statement": true,
     "empty_structure": {
       "loop": true,
-      "if": false,
+      "if": true,
       "while": true,
       "case": true,
       "select": true,
