@@ -25,6 +25,24 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
       ty_name_range  TYPE RANGE OF icon-name .
     TYPES:
       ty_text_range  TYPE RANGE OF icont-shorttext .
+    TYPES:
+      BEGIN OF ty_icon_dir,
+        id        TYPE icon_d,
+        name      TYPE iconname,
+        oleng     TYPE iconlength,
+        button    TYPE icon_b,
+        status    TYPE icon_s,
+        message   TYPE icon_m,
+        function  TYPE icon_f,
+        textfield TYPE icon_t,
+        internal  TYPE icon_int,
+        locked    TYPE icon_l,
+        i_class   TYPE icon_class,
+        i_group   TYPE icon_group,
+        i_member  TYPE icon_mem,
+        shorttext TYPE icont-shorttext,
+        quickinfo TYPE icont-quickinfo,
+      END OF ty_icon_dir .
 
     CONSTANTS:
       c_version     TYPE string VALUE '1.0.0' ##NO_TEXT,
@@ -50,9 +68,12 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
         !iv_disp_p  TYPE abap_bool .
     METHODS pbo .
     METHODS pai
+      CHANGING
+        !cv_ok_code TYPE sy-ucomm .
+    METHODS screen .
+    METHODS ucomm
       IMPORTING
         !iv_ok_code TYPE sy-ucomm .
-    METHODS screen .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -61,14 +82,6 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
       FOR if_apack_manifest~descriptor .
     ALIASES mbt_manifest
       FOR /mbtools/if_manifest~descriptor .
-
-    TYPES:
-      BEGIN OF ty_icon_dir.
-        INCLUDE TYPE icon.
-      TYPES:
-        shorttext TYPE icont-shorttext,
-        quickinfo TYPE icont-quickinfo,
-      END OF ty_icon_dir .
 
     DATA mo_tool TYPE REF TO /mbtools/cl_tools.
     DATA mo_tree TYPE REF TO /mbtools/cl_tree .
@@ -144,12 +157,17 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
   METHOD pai.
 
-    mo_tree->pai( iv_ok_code = iv_ok_code ).
+    mo_tree->pai( iv_ok_code = cv_ok_code ).
+
+    CLEAR cv_ok_code.
 
   ENDMETHOD.
 
 
   METHOD pbo.
+
+    SET PF-STATUS 'MAIN' OF PROGRAM sy-cprog.
+    SET TITLEBAR  'MAIN' OF PROGRAM sy-cprog.
 
     mo_tree->display( ).
 
@@ -428,6 +446,27 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD screen.
 
 *   Place holder...
+
+  ENDMETHOD.
+
+
+  METHOD ucomm.
+
+    CHECK sy-dynnr <> '1000'.
+
+    CASE iv_ok_code.
+
+        " About tab
+      WHEN 'DOCU'.
+        /mbtools/cl_utilities=>call_browser( mo_tool->get_url_docs( ) ).
+
+      WHEN 'TOOL'.
+        /mbtools/cl_utilities=>call_browser( mo_tool->get_url_tool( ) ).
+
+      WHEN 'HOME'.
+        /mbtools/cl_utilities=>call_browser( /mbtools/cl_tools=>c_home ).
+
+    ENDCASE.
 
   ENDMETHOD.
 ENDCLASS.
