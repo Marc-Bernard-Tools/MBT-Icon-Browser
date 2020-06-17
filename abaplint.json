@@ -7,9 +7,9 @@
   },
   "dependencies": [
     {
-      "url": "https://github.com/abaplint/deps",
+      "url": false,
       "folder": "/deps",
-      "files": "/src/**/*.*"
+      "files": "/**/*.*"
     }
   ],
   "syntax": {
@@ -28,26 +28,19 @@
       ]
     },
     "abapdoc": false,
-    "allowed_object_naming": true,
+    "allowed_object_naming": {
+      "exclude": [
+        "#mbtools#"
+      ]
+    },
     "allowed_object_types": {
       "allowed": [
-        "ACID",
-        "AVAR",
         "CLAS",
-        "DTEL",
         "DEVC",
-        "DOMA",
-        "ENHO",
-        "ENHS",
-        "ENQU",
-        "FUGR",
-        "INTF",
-        "MSAG",
-        "PARA",
+	"INTF",
         "PROG",
-        "TABL",
         "TRAN",
-        "TTYP",
+	"TYPE",
         "W3MI"
       ]
     },
@@ -72,7 +65,7 @@
     "check_ddic": true,
     "check_include": {
       "exclude": [
-        "#mbtools#bc_screen_pbo_pai.prog.abap"
+        "#mbtools#"
       ]
     },
     "chain_mainly_declarations": true,
@@ -229,7 +222,7 @@
     },
     "method_parameter_names": {
       "exclude": [
-        "#mbtools#cl_registry.clas.abap"
+        "#mbtools#"
       ],
       "ignoreExceptions": true,
       "importing": "^I._.*$",
