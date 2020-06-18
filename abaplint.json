@@ -111,7 +111,7 @@
       ]
     },
     "description_empty": true,
-    "double_space": true,
+    "double_space": false,
     "downport": false,
     "empty_line_in_statement": {
       "allowChained": true
@@ -149,7 +149,7 @@
         "#mbtools#"
       ]
     },
-    "in_statement_indentation": true,
+    "in_statement_indentation": false,
     "indentation": {
       "ignoreExceptions": true,
       "alignTryCatch": false,
