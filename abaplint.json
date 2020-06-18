@@ -111,7 +111,7 @@
       ]
     },
     "description_empty": true,
-    "double_space": false,
+    "double_space": true,
     "downport": false,
     "empty_line_in_statement": {
       "allowChained": true
@@ -133,7 +133,7 @@
       "check": ["^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
     },
     "form_no_dash": true,
-    "form_tables_obsolete": false,
+    "form_tables_obsolete": true,
     "fully_type_constants": true,
     "functional_writing":  {
       "exclude": [
@@ -149,7 +149,7 @@
         "#mbtools#"
       ]
     },
-    "in_statement_indentation": false,
+    "in_statement_indentation": true,
     "indentation": {
       "ignoreExceptions": true,
       "alignTryCatch": false,
@@ -203,7 +203,7 @@
     },
     "main_file_contents": true,
     "max_one_statement": true,
-    "message_exists": false,
+    "message_exists": true,
     "method_length": {
       "exclude": [
         "#mbtools#"
@@ -231,7 +231,7 @@
       ],
       "depth": 5
     },
-    "newline_between_methods": false,
+    "newline_between_methods": true,
     "no_public_attributes": false,
     "object_naming": {
       "clas": "^/MBTOOLS/C(L|X)\\_",
