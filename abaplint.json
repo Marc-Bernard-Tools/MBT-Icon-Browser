@@ -40,10 +40,10 @@
       "allowed": [
         "CLAS",
         "DEVC",
-	"INTF",
+	    "INTF",
         "PROG",
         "TRAN",
-	"TYPE",
+	    "TYPE",
         "W3MI"
       ]
     },
@@ -130,7 +130,8 @@
     "exporting": true,
     "forbidden_identifier": true,
     "forbidden_void_type": {
-      "check": ["^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
+      "check": ["^stringtab$", "^char.*$", "^int4$", "^rs_c_true$", "^rs_c_false$",
+        "^flag$", "^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
     },
     "form_no_dash": true,
     "form_tables_obsolete": true,
