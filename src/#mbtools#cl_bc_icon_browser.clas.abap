@@ -166,6 +166,8 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
   METHOD pbo.
 
+    /mbtools/cl_screen=>banner( iv_show = abap_false ).
+
     SET PF-STATUS 'MAIN' OF PROGRAM sy-cprog.
     SET TITLEBAR  'MAIN' OF PROGRAM sy-cprog.
 

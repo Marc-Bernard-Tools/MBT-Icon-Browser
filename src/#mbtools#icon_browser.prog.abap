@@ -92,8 +92,6 @@ DATA:
 
 MODULE pbo_100 OUTPUT.
 
-  /mbtools/cl_screen=>banner( iv_show = abap_false ).
-
   go_app->pbo( ).
 
 ENDMODULE.                 " PBO_0100  OUTPUT
