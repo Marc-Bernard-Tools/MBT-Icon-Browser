@@ -83,14 +83,20 @@ SELECTION-SCREEN:
 
 *-----------------------------------------------------------------------
 
+CONSTANTS:
+  c_title TYPE string VALUE /mbtools/cl_tool_bc_icon=>c_tool-title.
+
 DATA:
   gv_ok_code TYPE sy-ucomm,
   go_tool    TYPE REF TO /mbtools/cl_tools,
-  go_app     TYPE REF TO /mbtools/cl_bc_icon_browser.
+  go_screen  TYPE REF TO /mbtools/cl_screen,
+  go_app     TYPE REF TO /mbtools/cl_icon_browser.
 
 *-----------------------------------------------------------------------
 
 MODULE pbo_100 OUTPUT.
+
+  go_screen->banner( iv_show = abap_false ).
 
   go_app->pbo( ).
 
@@ -104,12 +110,17 @@ ENDMODULE.                 " PAI_0100  INPUT
 
 INITIALIZATION.
 
-  CREATE OBJECT go_app.
-  CREATE OBJECT go_tool EXPORTING io_tool = go_app.
+  IF /mbtools/cl_switches=>is_active( c_title ) = abap_false.
+    MESSAGE e004(/mbtools/bc) WITH c_title.
+    RETURN.
+  ENDIF.
 
-  /mbtools/cl_screen=>init(
-    EXPORTING
-      ir_tool      = go_tool
+  CREATE OBJECT go_app.
+
+  go_tool   = /mbtools/cl_tools=>factory( c_title ).
+  go_screen = /mbtools/cl_screen=>factory( c_title ).
+
+  go_screen->init(
     IMPORTING
       ev_text      = scr_t001
       ev_about     = scr_tab9
@@ -120,7 +131,7 @@ INITIALIZATION.
       ev_tool      = b_tool
       ev_home      = b_home ).
 
-  scr_tab2 = /mbtools/cl_screen=>header(
+  scr_tab2 = go_screen->header(
     iv_icon = icon_color
     iv_text = 'Icons' ).
 
@@ -133,19 +144,13 @@ AT SELECTION-SCREEN.
 
   go_app->screen( ).
 
-  /mbtools/cl_screen=>ucomm(
-    iv_ok_code  = sscrfields-ucomm
-    iv_url_docs = go_tool->get_url_docs( )
-    iv_url_tool = go_tool->get_url_tool( ) ).
+  go_screen->ucomm( sscrfields-ucomm ).
 
 *-----------------------------------------------------------------------
 
 AT SELECTION-SCREEN OUTPUT.
 
-  /mbtools/cl_screen=>banner(
-    iv_tool = go_tool->get_id( )
-    iv_top  = 4
-    iv_left = 20 ).
+  go_screen->banner( ).
 
   go_app->screen( ).
 
@@ -153,9 +158,7 @@ AT SELECTION-SCREEN OUTPUT.
 
 START-OF-SELECTION.
 
-  LOG-POINT ID /mbtools/bc
-    SUBKEY go_tool->get_title( )
-    FIELDS sy-datum sy-uzeit sy-uname.
+  LOG-POINT ID /mbtools/bc SUBKEY c_title FIELDS sy-datum sy-uzeit sy-uname.
 
   " Setup tree
   go_app->initialize(

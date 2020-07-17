@@ -4,16 +4,13 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-CLASS /mbtools/cl_bc_icon_browser DEFINITION
+CLASS /mbtools/cl_icon_browser DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
 
   PUBLIC SECTION.
     TYPE-POOLS icon .
-
-    INTERFACES if_apack_manifest.
-    INTERFACES /mbtools/if_manifest .
 
     TYPES:
       ty_class_range TYPE RANGE OF icon-i_class .
@@ -44,15 +41,6 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
         quickinfo TYPE icont-quickinfo,
       END OF ty_icon_dir .
 
-    CONSTANTS:
-      c_version     TYPE string VALUE '1.0.0' ##NO_TEXT,
-      c_title       TYPE string VALUE 'MBT Icon Browser' ##NO_TEXT,
-      c_bundle_id   TYPE i VALUE 0 ##NO_TEXT,
-      c_download_id TYPE i VALUE 4413 ##NO_TEXT,
-      c_description TYPE string
-      VALUE 'A Simple Tool to Query, Display, and Download Icons Available in SAP GUI' ##NO_TEXT.
-
-    METHODS constructor .
     METHODS initialize
       IMPORTING
         !ir_classes TYPE ty_class_range
@@ -71,19 +59,10 @@ CLASS /mbtools/cl_bc_icon_browser DEFINITION
       CHANGING
         !cv_ok_code TYPE sy-ucomm .
     METHODS screen .
-    METHODS ucomm
-      IMPORTING
-        !iv_ok_code TYPE sy-ucomm .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
 
-    ALIASES apack_manifest
-      FOR if_apack_manifest~descriptor .
-    ALIASES mbt_manifest
-      FOR /mbtools/if_manifest~descriptor .
-
-    DATA mo_tool TYPE REF TO /mbtools/cl_tools.
     DATA mo_tree TYPE REF TO /mbtools/cl_tree .
     DATA:
       mt_icon_dir TYPE TABLE OF ty_icon_dir .
@@ -121,15 +100,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
-
-
-  METHOD constructor.
-    CREATE OBJECT mo_tool EXPORTING io_tool = me.
-
-    apack_manifest = mo_tool->apack_manifest.
-    mbt_manifest   = mo_tool->mbt_manifest.
-  ENDMETHOD.
+CLASS /MBTOOLS/CL_ICON_BROWSER IMPLEMENTATION.
 
 
   METHOD initialize.
@@ -165,8 +136,6 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
 
 
   METHOD pbo.
-
-    /mbtools/cl_screen=>banner( iv_show = abap_false ).
 
     SET PF-STATUS 'MAIN' OF PROGRAM sy-cprog.
     SET TITLEBAR  'MAIN' OF PROGRAM sy-cprog.
@@ -448,27 +417,6 @@ CLASS /MBTOOLS/CL_BC_ICON_BROWSER IMPLEMENTATION.
   METHOD screen.
 
 *   Place holder...
-
-  ENDMETHOD.
-
-
-  METHOD ucomm.
-
-    CHECK sy-dynnr <> '1000'.
-
-    CASE iv_ok_code.
-
-        " About tab
-      WHEN 'DOCU'.
-        /mbtools/cl_utilities=>call_browser( mo_tool->get_url_docs( ) ).
-
-      WHEN 'TOOL'.
-        /mbtools/cl_utilities=>call_browser( mo_tool->get_url_tool( ) ).
-
-      WHEN 'HOME'.
-        /mbtools/cl_utilities=>call_browser( /mbtools/cl_tools=>c_home ).
-
-    ENDCASE.
 
   ENDMETHOD.
 ENDCLASS.
