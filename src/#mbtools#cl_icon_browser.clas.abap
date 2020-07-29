@@ -1,13 +1,12 @@
-************************************************************************
-* /MBTOOLS/CL_BC_ICON_BROWSER
-* MBT Icon Browser
-*
-* (c) MBT 2020 https://marcbernardtools.com/
-************************************************************************
 CLASS /mbtools/cl_icon_browser DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+************************************************************************
+* MBT Icon Browser
+*
+* (c) MBT 2020 https://marcbernardtools.com/
+************************************************************************
 
   PUBLIC SECTION.
     TYPE-POOLS icon .

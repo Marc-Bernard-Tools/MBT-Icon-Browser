@@ -1,13 +1,12 @@
-************************************************************************
-* /MBTOOLS/CL_TOOL_BC_ICON
-* MBT Icon Browser
-*
-* (c) MBT 2020 https://marcbernardtools.com/
-************************************************************************
 CLASS /mbtools/cl_tool_bc_icon DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+************************************************************************
+* MBT Icon Browser
+*
+* (c) MBT 2020 https://marcbernardtools.com/
+************************************************************************
 
   PUBLIC SECTION.
     INTERFACES /mbtools/if_manifest .

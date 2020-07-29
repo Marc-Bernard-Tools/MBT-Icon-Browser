@@ -1,12 +1,11 @@
+REPORT /mbtools/icon_browser.
 ************************************************************************
-* /MBTOOLS/ICON_BROWSER
 * MBT Icon Browser
 *
-* This tool lists all SAP GUI icons in a tree control
+* This tool displays all SAP GUI icons in a tree control
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-REPORT /mbtools/icon_browser.
 
 TABLES:
   sscrfields, icon, icont.
