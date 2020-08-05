@@ -22,12 +22,15 @@ CLASS /mbtools/cl_tool_bc_icon DEFINITION
         bundle_id   TYPE i VALUE 0,
         download_id TYPE i VALUE 4413,
         description TYPE string
-        VALUE 'A Simple Tool to Query, Display, and Download Icons Available in SAP GUI' ##NO_TEXT,
+        VALUE 'Query, display, and download icons available in SAP GUI' ##NO_TEXT,
+        has_launch  TYPE abap_bool VALUE abap_true,
       END OF c_tool.
 
     METHODS constructor .
-  PROTECTED SECTION.
 
+    METHODS launch.
+
+  PROTECTED SECTION.
   PRIVATE SECTION.
 
     DATA mo_tool TYPE REF TO /mbtools/cl_tools .
@@ -42,5 +45,10 @@ CLASS /MBTOOLS/CL_TOOL_BC_ICON IMPLEMENTATION.
   METHOD constructor.
     CREATE OBJECT mo_tool EXPORTING io_tool = me.
     mbt_manifest = mo_tool->mbt_manifest.
+  ENDMETHOD.
+
+
+  METHOD launch.
+    /mbtools/cl_sap=>run_program( '/MBTOOLS/ICON_BROWSER' ).
   ENDMETHOD.
 ENDCLASS.
