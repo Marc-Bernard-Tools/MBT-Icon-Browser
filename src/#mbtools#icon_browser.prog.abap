@@ -87,6 +87,7 @@ CONSTANTS:
 
 DATA:
   gv_ok_code TYPE sy-ucomm,
+  gv_count   TYPE sy-tabix,
   go_tool    TYPE REF TO /mbtools/cl_tools,
   go_screen  TYPE REF TO /mbtools/cl_screen,
   go_app     TYPE REF TO /mbtools/cl_icon_browser.
@@ -160,7 +161,7 @@ START-OF-SELECTION.
   LOG-POINT ID /mbtools/bc SUBKEY c_title FIELDS sy-datum sy-uzeit sy-uname.
 
   " Setup tree
-  go_app->initialize(
+  gv_count = go_app->initialize(
     ir_classes = s_class[]
     ir_groups  = s_group[]
     ir_icons   = s_icon[]
@@ -173,5 +174,11 @@ START-OF-SELECTION.
     iv_disp_i  = p_disp_i
     iv_disp_p  = p_disp_p ).
 
-  " Output as ALV tree control
-  CALL SCREEN 100.
+  IF gv_count = 0.
+    MESSAGE 'No icons found' TYPE 'S'.
+  ELSE.
+    MESSAGE |{ gv_count } icons found| TYPE 'S'.
+
+    " Output as ALV tree control
+    CALL SCREEN 100.
+  ENDIF.

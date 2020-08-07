@@ -31,6 +31,7 @@ CLASS /mbtools/cl_tool_bc_icon DEFINITION
     METHODS launch.
 
   PROTECTED SECTION.
+
   PRIVATE SECTION.
 
     DATA mo_tool TYPE REF TO /mbtools/cl_tools .

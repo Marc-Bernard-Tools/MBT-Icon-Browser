@@ -1,28 +1,28 @@
-CLASS /mbtools/cl_icon_browser DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class /MBTOOLS/CL_ICON_BROWSER definition
+  public
+  final
+  create public .
+
 ************************************************************************
 * MBT Icon Browser
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
+public section.
+  type-pools ICON .
 
-  PUBLIC SECTION.
-    TYPE-POOLS icon .
-
-    TYPES:
-      ty_class_range TYPE RANGE OF icon-i_class .
-    TYPES:
-      ty_group_range TYPE RANGE OF icon-i_group .
-    TYPES:
-      ty_icon_dir_range  TYPE RANGE OF icon-id .
-    TYPES:
-      ty_name_range  TYPE RANGE OF icon-name .
-    TYPES:
-      ty_text_range  TYPE RANGE OF icont-shorttext .
-    TYPES:
-      BEGIN OF ty_icon_dir,
+  types:
+    ty_class_range TYPE RANGE OF icon-i_class .
+  types:
+    ty_group_range TYPE RANGE OF icon-i_group .
+  types:
+    ty_icon_dir_range  TYPE RANGE OF icon-id .
+  types:
+    ty_name_range  TYPE RANGE OF icon-name .
+  types:
+    ty_text_range  TYPE RANGE OF icont-shorttext .
+  types:
+    BEGIN OF ty_icon_dir,
         id        TYPE icon_d,
         name      TYPE iconname,
         oleng     TYPE iconlength,
@@ -40,24 +40,26 @@ CLASS /mbtools/cl_icon_browser DEFINITION
         quickinfo TYPE icont-quickinfo,
       END OF ty_icon_dir .
 
-    METHODS initialize
-      IMPORTING
-        !ir_classes TYPE ty_class_range
-        !ir_groups  TYPE ty_group_range
-        !ir_icons   TYPE ty_icon_dir_range
-        !ir_names   TYPE ty_name_range
-        !ir_texts   TYPE ty_text_range
-        !iv_name    TYPE abap_bool
-        !iv_id      TYPE abap_bool
-        !iv_text    TYPE abap_bool
-        !iv_disp_n  TYPE abap_bool
-        !iv_disp_i  TYPE abap_bool
-        !iv_disp_p  TYPE abap_bool .
-    METHODS pbo .
-    METHODS pai
-      CHANGING
-        !cv_ok_code TYPE sy-ucomm .
-    METHODS screen .
+  methods INITIALIZE
+    importing
+      !IR_CLASSES type TY_CLASS_RANGE
+      !IR_GROUPS type TY_GROUP_RANGE
+      !IR_ICONS type TY_ICON_DIR_RANGE
+      !IR_NAMES type TY_NAME_RANGE
+      !IR_TEXTS type TY_TEXT_RANGE
+      !IV_NAME type ABAP_BOOL
+      !IV_ID type ABAP_BOOL
+      !IV_TEXT type ABAP_BOOL
+      !IV_DISP_N type ABAP_BOOL
+      !IV_DISP_I type ABAP_BOOL
+      !IV_DISP_P type ABAP_BOOL
+    returning
+      value(RV_RESULT) type I .
+  methods PBO .
+  methods PAI
+    changing
+      !CV_OK_CODE type SY-UCOMM .
+  methods SCREEN .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -120,7 +122,11 @@ CLASS /MBTOOLS/CL_ICON_BROWSER IMPLEMENTATION.
 
     process_selection( ).
 
-    process_main( ).
+    IF NOT mt_icon_dir IS INITIAL.
+      process_main( ).
+    ENDIF.
+
+    rv_result = lines( mt_icon_dir ).
 
   ENDMETHOD.
 
