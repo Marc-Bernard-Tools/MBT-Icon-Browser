@@ -389,7 +389,7 @@ CLASS /MBTOOLS/CL_ICON_BROWSER IMPLEMENTATION.
         AND i_group IN mr_groups
         AND id      IN mr_icons
         AND name    IN mr_names
-      ORDER BY i_class i_group i_member.
+      ORDER BY i_class i_group i_member.                 "#EC CI_BYPASS
 
       CLEAR ls_icon_dir.
       MOVE-CORRESPONDING ls_icon TO ls_icon_dir.
