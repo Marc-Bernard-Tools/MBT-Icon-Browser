@@ -9,8 +9,6 @@ CLASS /mbtools/cl_icon_browser DEFINITION
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
   PUBLIC SECTION.
-    TYPE-POOLS icon.
-
     TYPES:
       ty_class_range TYPE RANGE OF icon-i_class.
     TYPES:
@@ -122,7 +120,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
     _selection( ).
 
-    IF NOT mt_icon_dir IS INITIAL.
+    IF mt_icon_dir IS NOT INITIAL.
       _main( ).
     ENDIF.
 
@@ -400,7 +398,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
         WHERE langu = sy-langu AND id = ls_icon-id.
       IF sy-subrc = 0.
         MOVE-CORRESPONDING ls_icont TO ls_icon_dir.
-        IF NOT ls_icont-shorttext IN mr_texts.
+        IF ls_icont-shorttext NOT IN mr_texts.
           CONTINUE.
         ENDIF.
       ELSEIF mr_texts IS NOT INITIAL.

@@ -98,7 +98,7 @@ DATA:
 
 MODULE pbo_100 OUTPUT.
 
-  go_screen->banner( iv_show = abap_false ).
+  go_screen->banner( abap_false ).
 
   go_app->pbo( ).
 
