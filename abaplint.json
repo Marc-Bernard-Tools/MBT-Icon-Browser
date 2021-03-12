@@ -345,9 +345,7 @@
 			"severity": "Error"
 		},
 		"intf_referencing_clas": {
-			"exclude": [
-				"#mbtools#if_command.intf.abap"
-			],
+			"exclude": [],
 			"severity": "Error"
 		},
 		"keep_single_parameter_on_one_line": {
@@ -481,9 +479,7 @@
 		},
 		"no_public_attributes": {
 			"allowReadOnly": true,
-			"exclude": [
-				"#mbtools#if_command.intf.abap"
-			],
+			"exclude": [],
 			"severity": "Error"
 		},
 		"object_naming": {
@@ -741,7 +737,7 @@
 		"globalConstants": [
 			"icon_folder",
 			"icon_locked",
-			"icon_color",
+			"icon_color"
 		],
 		"globalMacros": [],
 		"version": "v702"
