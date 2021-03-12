@@ -1,7 +1,7 @@
 CLASS /mbtools/cl_icon_browser DEFINITION
   PUBLIC
   FINAL
-  CREATE PUBLIC .
+  CREATE PUBLIC.
 
 ************************************************************************
 * MBT Icon Browser
@@ -9,18 +9,18 @@ CLASS /mbtools/cl_icon_browser DEFINITION
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
   PUBLIC SECTION.
-    TYPE-POOLS icon .
+    TYPE-POOLS icon.
 
     TYPES:
-      ty_class_range TYPE RANGE OF icon-i_class .
+      ty_class_range TYPE RANGE OF icon-i_class.
     TYPES:
-      ty_group_range TYPE RANGE OF icon-i_group .
+      ty_group_range TYPE RANGE OF icon-i_group.
     TYPES:
-      ty_icon_dir_range TYPE RANGE OF icon-id .
+      ty_icon_dir_range TYPE RANGE OF icon-id.
     TYPES:
-      ty_name_range TYPE RANGE OF icon-name .
+      ty_name_range TYPE RANGE OF icon-name.
     TYPES:
-      ty_text_range TYPE RANGE OF icont-shorttext .
+      ty_text_range TYPE RANGE OF icont-shorttext.
     TYPES:
       BEGIN OF ty_icon_dir,
         id        TYPE icon_d,
@@ -38,7 +38,7 @@ CLASS /mbtools/cl_icon_browser DEFINITION
         i_member  TYPE icon_mem,
         shorttext TYPE icont-shorttext,
         quickinfo TYPE icont-quickinfo,
-      END OF ty_icon_dir .
+      END OF ty_icon_dir.
 
     METHODS initialize
       IMPORTING
@@ -54,49 +54,49 @@ CLASS /mbtools/cl_icon_browser DEFINITION
         !iv_disp_i       TYPE abap_bool
         !iv_disp_p       TYPE abap_bool
       RETURNING
-        VALUE(rv_result) TYPE i .
-    METHODS pbo .
+        VALUE(rv_result) TYPE i.
+    METHODS pbo.
     METHODS pai
       CHANGING
-        !cv_ok_code TYPE sy-ucomm .
-    METHODS screen .
+        !cv_ok_code TYPE sy-ucomm.
+    METHODS screen.
   PROTECTED SECTION.
 
   PRIVATE SECTION.
 
-    DATA mo_tree TYPE REF TO /mbtools/cl_tree .
+    DATA mo_tree TYPE REF TO /mbtools/cl_tree.
     DATA:
-      mt_icon_dir TYPE TABLE OF ty_icon_dir .
-    DATA mr_classes TYPE ty_class_range .
-    DATA mr_groups TYPE ty_group_range .
-    DATA mr_icons TYPE ty_icon_dir_range .
-    DATA mr_names TYPE ty_name_range .
-    DATA mr_texts TYPE ty_text_range .
-    DATA mv_name TYPE abap_bool .
-    DATA mv_id TYPE abap_bool .
-    DATA mv_text TYPE abap_bool .
-    DATA mv_disp_n TYPE abap_bool .
-    DATA mv_disp_i TYPE abap_bool .
-    DATA mv_disp_p TYPE abap_bool .
+      mt_icon_dir TYPE TABLE OF ty_icon_dir.
+    DATA mr_classes TYPE ty_class_range.
+    DATA mr_groups TYPE ty_group_range.
+    DATA mr_icons TYPE ty_icon_dir_range.
+    DATA mr_names TYPE ty_name_range.
+    DATA mr_texts TYPE ty_text_range.
+    DATA mv_name TYPE abap_bool.
+    DATA mv_id TYPE abap_bool.
+    DATA mv_text TYPE abap_bool.
+    DATA mv_disp_n TYPE abap_bool.
+    DATA mv_disp_i TYPE abap_bool.
+    DATA mv_disp_p TYPE abap_bool.
 
-    METHODS _selection .
-    METHODS _main .
+    METHODS _selection.
+    METHODS _main.
     METHODS _class
       IMPORTING
         !is_class TYPE icon_cl
-        !iv_level TYPE i .
+        !iv_level TYPE i.
     METHODS _group
       IMPORTING
         !is_group TYPE icon_gr
-        !iv_level TYPE i .
+        !iv_level TYPE i.
     METHODS _icon
       IMPORTING
         !is_icon  TYPE ty_icon_dir
-        !iv_level TYPE i .
+        !iv_level TYPE i.
     METHODS _icon_properties
       IMPORTING
         !is_icon  TYPE ty_icon_dir
-        !iv_level TYPE i .
+        !iv_level TYPE i.
 ENDCLASS.
 
 
@@ -133,7 +133,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
   METHOD pai.
 
-    mo_tree->pai( iv_ok_code = cv_ok_code ).
+    mo_tree->pai( cv_ok_code ).
 
     CLEAR cv_ok_code.
 
@@ -143,7 +143,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
   METHOD pbo.
 
     SET PF-STATUS 'MAIN' OF PROGRAM sy-cprog.
-    SET TITLEBAR  'MAIN' OF PROGRAM sy-cprog.
+    SET TITLEBAR 'MAIN' OF PROGRAM sy-cprog.
 
     mo_tree->display( ).
 
@@ -151,9 +151,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
 
   METHOD screen.
-
-*   Place holder...
-
+    ASSERT 0 = 0.
   ENDMETHOD.
 
 
@@ -369,7 +367,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
       _class(
         is_class = ls_icon_cl
-        iv_level  = 1 ).
+        iv_level = 1 ).
 
     ENDSELECT.
 
@@ -405,7 +403,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
         IF NOT ls_icont-shorttext IN mr_texts.
           CONTINUE.
         ENDIF.
-      ELSEIF NOT mr_texts IS INITIAL.
+      ELSEIF mr_texts IS NOT INITIAL.
         CONTINUE.
       ENDIF.
 

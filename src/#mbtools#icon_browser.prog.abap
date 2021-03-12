@@ -30,15 +30,15 @@ SELECTION-SCREEN:
   END OF BLOCK b210,
   BEGIN OF BLOCK b220 WITH FRAME.
 PARAMETERS:
-  p_name RADIOBUTTON GROUP g2,
+  p_name RADIOBUTTON GROUP g2 DEFAULT 'X',
   p_text RADIOBUTTON GROUP g2,
   p_id   RADIOBUTTON GROUP g2,
-  p_orig RADIOBUTTON GROUP g2.
+  p_orig RADIOBUTTON GROUP g2 ##NEEDED.
 SELECTION-SCREEN:
   END OF BLOCK b220,
   BEGIN OF BLOCK b230 WITH FRAME.
 PARAMETERS:
-  p_disp_n RADIOBUTTON GROUP g3,
+  p_disp_n RADIOBUTTON GROUP g3 DEFAULT 'X',
   p_disp_i RADIOBUTTON GROUP g3,
   p_disp_p RADIOBUTTON GROUP g3.
 SELECTION-SCREEN:
@@ -141,6 +141,8 @@ INITIALIZATION.
   scr_t200 = 'Filter the selection of icons and set how you'.
   scr_t201 = 'want the results sorted and displayed'.
 
+  scr_tab-prog = sy-cprog. " abaplint #1291
+
 *-----------------------------------------------------------------------
 
 AT SELECTION-SCREEN.
@@ -161,6 +163,8 @@ AT SELECTION-SCREEN OUTPUT.
 
 START-OF-SELECTION.
 
+  DATA lv_msg TYPE string.
+
   LOG-POINT ID /mbtools/bc SUBKEY c_title FIELDS sy-datum sy-uzeit sy-uname.
 
   " Setup tree
@@ -180,7 +184,8 @@ START-OF-SELECTION.
   IF gv_count = 0.
     MESSAGE 'No icons found' TYPE 'S'.
   ELSE.
-    MESSAGE |{ gv_count } icons found| TYPE 'S'.
+    lv_msg = |{ gv_count } icons found|.
+    MESSAGE lv_msg TYPE 'S'.
 
     " Output as ALV tree control
     CALL SCREEN 100.
