@@ -20,7 +20,7 @@ CLASS /mbtools/cl_tool_bc_icon DEFINITION
         bundle_id    TYPE i VALUE 0,
         download_id  TYPE i VALUE 4413,
         description  TYPE string
-        VALUE 'Query, display, and download icons available in SAP GUI' ##NO_TEXT,
+        VALUE 'Query, Display, and Download Icons Available in SAP GUI' ##NO_TEXT,
         has_launch   TYPE abap_bool VALUE abap_true,
         mbt_command  TYPE string VALUE 'ICON',
         mbt_shortcut TYPE string VALUE 'IB',
