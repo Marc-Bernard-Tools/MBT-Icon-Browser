@@ -40,8 +40,18 @@ ENDCLASS.
 CLASS /mbtools/cl_tool_bc_icon IMPLEMENTATION.
 
 
+  METHOD /mbtools/if_tool~install.
+    RETURN.
+  ENDMETHOD.
+
+
   METHOD /mbtools/if_tool~launch.
     /mbtools/cl_sap=>run_program( '/MBTOOLS/ICON_BROWSER' ).
+  ENDMETHOD.
+
+
+  METHOD /mbtools/if_tool~uninstall.
+    RETURN.
   ENDMETHOD.
 
 
