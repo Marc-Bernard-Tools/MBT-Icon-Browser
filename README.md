@@ -2,7 +2,7 @@
 
 # MBT Icon Browser
 
-Query, Display, and Download Icons Available in SAP GUI
+Query, display, and download icons available in SAP GUI
 
 ### EVERYTHING IS VERY MUCH IN PROGRESS HERE 
 ### WE SUGGEST TO WAIT UNTIL THE OFFICIAL LAUNCH
