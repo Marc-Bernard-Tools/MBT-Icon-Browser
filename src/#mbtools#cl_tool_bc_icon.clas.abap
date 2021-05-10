@@ -14,7 +14,7 @@ CLASS /mbtools/cl_tool_bc_icon DEFINITION
 
     CONSTANTS:
       BEGIN OF c_tool,
-        version      TYPE string VALUE '1.1.0' ##NO_TEXT,
+        version      TYPE string VALUE '1.2.0' ##NO_TEXT,
         title        TYPE string VALUE 'MBT Icon Browser' ##NO_TEXT,
         description  TYPE string
         VALUE 'Query, display, and download icons available in SAP GUI' ##NO_TEXT,

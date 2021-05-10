@@ -90,7 +90,7 @@ CONSTANTS:
 DATA:
   gv_ok_code TYPE sy-ucomm,
   gv_count   TYPE sy-tabix,
-  go_tool    TYPE REF TO /mbtools/cl_tools,
+  go_tool    TYPE REF TO /mbtools/cl_tool,
   go_screen  TYPE REF TO /mbtools/cl_screen,
   go_app     TYPE REF TO /mbtools/cl_icon_browser.
 
@@ -119,7 +119,7 @@ INITIALIZATION.
 
   CREATE OBJECT go_app.
 
-  go_tool   = /mbtools/cl_tools=>factory( c_title ).
+  go_tool   = /mbtools/cl_tool_manager=>factory( c_title ).
   go_screen = /mbtools/cl_screen=>factory( c_title ).
 
   go_screen->init(
