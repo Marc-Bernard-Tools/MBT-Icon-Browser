@@ -781,11 +781,7 @@
 	},
 	"syntax": {
 		"errorNamespace": "^(/MBTOOLS/|LCL_|LIF_|Y|Z)",
-		"globalConstants": [
-			"icon_folder",
-			"icon_locked",
-			"icon_color"
-		],
+		"globalConstants": [],
 		"globalMacros": [],
 		"version": "v702"
 	}
