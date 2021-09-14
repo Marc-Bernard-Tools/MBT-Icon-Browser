@@ -4,7 +4,8 @@ REPORT /mbtools/icon_browser.
 *
 * This tool displays all SAP GUI icons in a tree control
 *
-* (c) MBT 2020 https://marcbernardtools.com/
+* Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
+* SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
 
 TABLES:
