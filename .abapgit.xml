@@ -16,7 +16,7 @@
     <VERSION>1.1.0</VERSION>
     <DESCRIPTION>Query, display, and download icons available in SAP GUI</DESCRIPTION>
     <GIT_URL>https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser</GIT_URL>
-    <TARGET_PACKAGE>/MBTOOLS/BC_ICON</TARGET_PACKAGE>
+    <TARGET_PACKAGE>/MBTOOLS/BC-ICON</TARGET_PACKAGE>
     <LOGO>/MBTOOLS/MBT_ICON_BROWSER_TN</LOGO>
     <DEPENDENCIES>
      <item>
