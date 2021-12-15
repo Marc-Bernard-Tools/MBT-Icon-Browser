@@ -1,4 +1,4 @@
-![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/Marc-Bernard-Tools/Marc-Bernard-Tools-Versions/.apack-manifest.xml/dependencies/github.com/Marc-Bernard-Tools/MBT-Icon-Browser&label=version&color=orange)
+![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/Marc-Bernard-Tools/Marc-Bernard-Tools-Versions/.apack-manifest.xml/dependencies/github.com/Marc-Bernard-Tools/MBT-Icon-Browser&label=version&color=blue)
 ![abaplint](https://github.com/sbcgua/ajson/workflows/abaplint/badge.svg)
 
 [![license](https://img.shields.io/github/license/Marc-Bernard-Tools/MBT-Icon-Browser)](LICENSE)
@@ -10,7 +10,7 @@
 
 Query, display, and download icons available in SAP GUI
 
-For details, visit [Marc Bernard Tools](https://marcbernardtools.com/downloads/mbt-icon-browser) and follow [@marcfbe](https://twitter.com/marcfbe) on Twitter.
+For details, visit **[Marc Bernard Tools](https://marcbernardtools.com/downloads/mbt-icon-browser)** and follow [@marcfbe](https://twitter.com/marcfbe) on Twitter.
 
 ![image](https://user-images.githubusercontent.com/59966492/146276446-2f8ac710-6e7a-4ef0-9087-7b7e309fd7b8.png)
 
