@@ -1,10 +1,10 @@
 ![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/Marc-Bernard-Tools/Marc-Bernard-Tools-Versions/.apack-manifest.xml/dependencies/github.com/Marc-Bernard-Tools/MBT-Icon-Browser&label=version&color=blue)
 ![abaplint](https://github.com/sbcgua/ajson/workflows/abaplint/badge.svg)
 
-[![license](https://img.shields.io/github/license/Marc-Bernard-Tools/MBT-Icon-Browser)](LICENSE)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
+[![license](https://img.shields.io/github/license/Marc-Bernard-Tools/MBT-Icon-Browser?color=green)](LICENSE)
 [![REUSE Status](https://api.reuse.software/badge/github.com/Marc-Bernard-Tools/MBT-Icon-Browser)](https://api.reuse.software/info/github.com/Marc-Bernard-Tools/MBT-Icon-Browser)
-[![ClearlyDefined Score](https://img.shields.io/clearlydefined/score/git/github/marc-bernard-tools/MBT-Icon-Browser/33dfe96cdf4917c6a2dd9d3c1785d6f9cdb60409?label=ClearlyDefined%20Score)](https://clearlydefined.io/definitions/git/github/marc-bernard-tools/MBT-Icon-Browser/33dfe96cdf4917c6a2dd9d3c1785d6f9cdb60409)
+[![ClearlyDefined Score](https://img.shields.io/clearlydefined/score/git/github/marc-bernard-tools/MBT-Icon-Browser/9c5dc2dbd6822223163de3cc72a25ce1fbb653ce?label=ClearlyDefined%20Score)](https://clearlydefined.io/definitions/git/github/marc-bernard-tools/MBT-Icon-Browser/9c5dc2dbd6822223163de3cc72a25ce1fbb653ce)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 # MBT Icon Browser
 
