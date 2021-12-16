@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/github/license/Marc-Bernard-Tools/MBT-Icon-Browser?color=green)](LICENSE)
 [![REUSE Status](https://api.reuse.software/badge/github.com/Marc-Bernard-Tools/MBT-Icon-Browser)](https://api.reuse.software/info/github.com/Marc-Bernard-Tools/MBT-Icon-Browser)
 [![ClearlyDefined Score](https://img.shields.io/clearlydefined/score/git/github/marc-bernard-tools/MBT-Icon-Browser/9c5dc2dbd6822223163de3cc72a25ce1fbb653ce?label=ClearlyDefined%20Score)](https://clearlydefined.io/definitions/git/github/marc-bernard-tools/MBT-Icon-Browser/9c5dc2dbd6822223163de3cc72a25ce1fbb653ce)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg?color=green)](CODE_OF_CONDUCT.md)
 
 # MBT Icon Browser
 
