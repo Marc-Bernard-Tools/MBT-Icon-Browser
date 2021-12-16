@@ -16,6 +16,11 @@ For details, visit **[Marc Bernard Tools](https://marcbernardtools.com/downloads
 
 ![image](https://user-images.githubusercontent.com/59966492/146276506-9090f5d3-b192-4d06-a32e-16293eca1ded.png)
 
+## Installation
+
+Use the [MBT Installer](https://marcbernardtools.com/downloads/mbt-installer/) to deploy the repository to your SAP system. For more infornation, see 
+[Installation Instructions](https://marcbernardtools.com/docs/marc-bernard-tools/installation/).
+
 ## Contributions
 
 All contributions are welcome! Just fork this repo and create a pull request. 
