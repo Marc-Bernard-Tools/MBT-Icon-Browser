@@ -513,9 +513,7 @@
 			"severity": "Error"
 		},
 		"no_aliases": {
-			"exclude": [
-			  "#mbtools#cl_gui_asset_manager.*"
-			],
+			"exclude": [],
 			"severity": "Error"
 		},
 		"no_chained_assignment": {
