@@ -30,10 +30,6 @@
 			"exclude": [".*"],
 			"severity": "Error"
 		},
-		"align_parameters": {
-			"exclude": [],
-			"severity": "Error"
-		},
 		"allowed_object_naming": {
 			"exclude": [],
 			"severity": "Error"
@@ -61,6 +57,10 @@
 				"TTYP",
 				"W3MI"
 			],
+			"exclude": [],
+			"severity": "Error"
+		},
+		"align_parameters": {
 			"exclude": [],
 			"severity": "Error"
 		},
@@ -164,6 +164,10 @@
 			"severity": "Error",
 			"statics": "^G._.+$"
 		},
+		"classic_exceptions_overlap": {
+			"exclude": [],
+			"severity": "Error"
+		},
 		"cloud_types": {
 			"exclude": [],
 			"severity": "Error"
@@ -195,7 +199,7 @@
 			"exclude": [],
 			"severity": "Error",
 			"skip": [],
-			"skipSharedMemory": false
+			"skipSharedMemory": true
 		},
 		"cyclomatic_complexity": {
 			"exclude": [],
@@ -421,7 +425,7 @@
 			"severity": "Error",
 			"test": "^LTCL_.+$"
 		},
-		"local_testclass_location": {
+		"local_testclass_consistency": {
 			"exclude": [],
 			"severity": "Error"
 		},
@@ -520,6 +524,10 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"no_inline_in_optional_branches": {
+			"exclude": [],
+			"severity": "Error"
+		},
 		"no_public_attributes": {
 			"allowReadOnly": true,
 			"exclude": [],
@@ -529,6 +537,10 @@
 		"no_yoda_conditions": {
 			"exclude": [],
   			"onlyConstants": true,
+			"severity": "Error"
+		},
+		"nrob_consistency": {
+			"exclude": [],
 			"severity": "Error"
 		},
 		"object_naming": {
@@ -589,6 +601,10 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"omit_preceding_zeros": {
+			"exclude": [],
+			"severity": "Error"
+		},
 		"omit_receiving": {
 			"exclude": [],
 			"severity": "Error"
@@ -602,6 +618,15 @@
 			"severity": "Error"
 		},
 		"parser_missing_space": {
+			"exclude": [],
+			"severity": "Error"
+		},
+		"pragma_style": {
+			"exclude": [],
+			"severity": "Error",
+			"style": "upper"
+		},
+		"prefer_corresponding": {
 			"exclude": [],
 			"severity": "Error"
 		},
@@ -667,7 +692,7 @@
 		},
 		"select_performance": {
 			"endSelect": true,
-			"exclude": [".*"],
+			"exclude": [],
 			"selectStar": true,
 			"severity": "Error",
 			"starOkayIfFewColumns": 10
@@ -696,6 +721,10 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"slow_parameter_passing": {
+			"exclude": [],
+			"severity": "Error"
+		},
 		"space_before_colon": {
 			"exclude": [],
 			"severity": "Error"
@@ -711,6 +740,10 @@
 			"severity": "Error"
 		},
 		"start_at_tab": {
+			"exclude": [],
+			"severity": "Error"
+		},
+		"static_call_via_instance": {
 			"exclude": [],
 			"severity": "Error"
 		},
@@ -744,6 +777,16 @@
 			"severity": "Error"
 		},
 		"unknown_types": {
+			"exclude": [],
+			"severity": "Error"
+		},
+		"unnecessary_chaining": {
+			"exclude": [
+				".*"
+			],
+			"severity": "Error"
+		},
+		"unnecessary_pragma": {
 			"exclude": [],
 			"severity": "Error"
 		},
