@@ -14,6 +14,15 @@ and [ISO Date Format](https://www.iso.org/iso-8601-date-and-time-format.html).
 
 ### Fixed
 
+## Version [1.3.0] - 2022-04-24
+
+### Changed
+
+- Switched logic for icon classes and groups (no more need for tables `icon_cl` and `icon_gr`)
+
+### Fixed
+
+- Updated abaplint rules and linting
 
 ## Version [1.2.0] - 2021-12-06
 
@@ -28,7 +37,8 @@ Launch Release
 Initial Release. For details, see [Features](https://marcbernardtools.com/docs/mbt-icon-browser/features).
 
 
-[Unreleased]: https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser/compare/1.2.0...main
+[Unreleased]: https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser/compare/1.3.0...main
+[1.3.0]: https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/Marc-Bernard-Tools/MBT-Icon-Browser/releases/tag/1.0.0
