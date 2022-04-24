@@ -37,9 +37,10 @@
 		"allowed_object_types": {
 			"allowed": [
 				"CLAS",
-				"DTEL",
 				"DEVC",
 				"DOMA",
+				"DSYS",
+				"DTEL",
 				"ENHC",
 				"ENHO",
 				"ENHS",
@@ -50,6 +51,7 @@
 				"NSPC",
 				"PARA",
 				"PROG",
+        "SHLP",
 				"SOTS",
 				"TABL",
 				"TOBJ",
@@ -692,9 +694,8 @@
 		},
 		"select_performance": {
 			"endSelect": true,
-			"exclude": [
-				".*"
-			],
+			"exclude": [".*"],
+			"exclude": [".*"],
 			"selectStar": true,
 			"severity": "Error",
 			"starOkayIfFewColumns": 10
@@ -783,9 +784,7 @@
 			"severity": "Error"
 		},
 		"unnecessary_chaining": {
-			"exclude": [
-				".*"
-			],
+			"exclude": [".*"],
 			"severity": "Error"
 		},
 		"unnecessary_pragma": {
