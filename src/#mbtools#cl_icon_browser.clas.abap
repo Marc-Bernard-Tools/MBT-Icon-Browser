@@ -10,17 +10,24 @@ CLASS /mbtools/cl_icon_browser DEFINITION
 * SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
   PUBLIC SECTION.
+
     TYPES:
-      ty_class_range TYPE RANGE OF icon-i_class.
-    TYPES:
-      ty_group_range TYPE RANGE OF icon-i_group.
-    TYPES:
-      ty_icon_dir_range TYPE RANGE OF icon-id.
-    TYPES:
-      ty_name_range TYPE RANGE OF icon-name.
-    TYPES:
-      ty_text_range TYPE RANGE OF icont-shorttext.
-    TYPES:
+      ty_class_range    TYPE RANGE OF icon-i_class,
+      ty_group_range    TYPE RANGE OF icon-i_group,
+      ty_icon_dir_range TYPE RANGE OF icon-id,
+      ty_name_range     TYPE RANGE OF icon-name,
+      ty_text_range     TYPE RANGE OF icont-shorttext,
+      BEGIN OF ty_icon_cl,
+        langu TYPE spras,
+        id    TYPE icon_class,
+        name  TYPE string,
+      END OF ty_icon_cl,
+      BEGIN OF ty_icon_gr,
+        langu TYPE spras,
+        id    TYPE icon_group,
+        class TYPE icon_class,
+        name  TYPE string,
+      END OF ty_icon_gr,
       BEGIN OF ty_icon_dir,
         id        TYPE icon_d,
         name      TYPE iconname,
@@ -39,6 +46,8 @@ CLASS /mbtools/cl_icon_browser DEFINITION
         quickinfo TYPE icont-quickinfo,
       END OF ty_icon_dir.
 
+    METHODS constructor.
+
     METHODS initialize
       IMPORTING
         !ir_classes      TYPE ty_class_range
@@ -54,53 +63,89 @@ CLASS /mbtools/cl_icon_browser DEFINITION
         !iv_disp_p       TYPE abap_bool
       RETURNING
         VALUE(rv_result) TYPE i.
+
     METHODS pbo.
+
     METHODS pai
       CHANGING
         !cv_ok_code TYPE sy-ucomm.
+
     METHODS screen.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.
 
-    DATA mo_tree TYPE REF TO /mbtools/cl_tree.
+    CONSTANTS:
+      c_prog_icon_cl TYPE progname VALUE '/MBTOOLS/ICON_BROWSER_CL',
+      c_prog_icon_gr TYPE progname VALUE '/MBTOOLS/ICON_BROWSER_GR'.
+
     DATA:
-      mt_icon_dir TYPE TABLE OF ty_icon_dir.
-    DATA mr_classes TYPE ty_class_range.
-    DATA mr_groups TYPE ty_group_range.
-    DATA mr_icons TYPE ty_icon_dir_range.
-    DATA mr_names TYPE ty_name_range.
-    DATA mr_texts TYPE ty_text_range.
-    DATA mv_name TYPE abap_bool.
-    DATA mv_id TYPE abap_bool.
-    DATA mv_text TYPE abap_bool.
-    DATA mv_disp_n TYPE abap_bool.
-    DATA mv_disp_i TYPE abap_bool.
-    DATA mv_disp_p TYPE abap_bool.
+      mo_tree     TYPE REF TO /mbtools/cl_tree,
+      mt_icon_dir TYPE TABLE OF ty_icon_dir,
+      mt_icon_cl  TYPE TABLE OF ty_icon_cl,
+      mt_icon_gr  TYPE TABLE OF ty_icon_gr,
+      mr_classes  TYPE ty_class_range,
+      mr_groups   TYPE ty_group_range,
+      mr_icons    TYPE ty_icon_dir_range,
+      mr_names    TYPE ty_name_range,
+      mr_texts    TYPE ty_text_range,
+      mv_name     TYPE abap_bool,
+      mv_id       TYPE abap_bool,
+      mv_text     TYPE abap_bool,
+      mv_langu    TYPE sy-langu,
+      mv_disp_n   TYPE abap_bool,
+      mv_disp_i   TYPE abap_bool,
+      mv_disp_p   TYPE abap_bool.
+
+    METHODS _init_icon_classes.
+
+    METHODS _init_icon_groups.
 
     METHODS _selection.
+
     METHODS _main.
+
     METHODS _class
       IMPORTING
-        !is_class TYPE icon_cl
+        !is_class TYPE ty_icon_cl
         !iv_level TYPE i.
+
     METHODS _group
       IMPORTING
-        !is_group TYPE icon_gr
+        !is_group TYPE ty_icon_gr
         !iv_level TYPE i.
+
     METHODS _icon
       IMPORTING
         !is_icon  TYPE ty_icon_dir
         !iv_level TYPE i.
+
     METHODS _icon_properties
       IMPORTING
         !is_icon  TYPE ty_icon_dir
         !iv_level TYPE i.
+
 ENDCLASS.
 
 
 
 CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
+
+
+  METHOD constructor.
+
+    _init_icon_classes( ).
+    _init_icon_groups( ).
+
+    " Icon classes and groups are available in German or English only
+    IF sy-langu = 'D' OR sy-langu = 'E'.
+      mv_langu = sy-langu.
+    ELSE.
+      mv_langu = 'E'.
+    ENDIF.
+
+  ENDMETHOD.
 
 
   METHOD initialize.
@@ -158,7 +203,7 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
     DATA:
       lo_level TYPE REF TO /mbtools/cl_tree_level,
-      ls_group TYPE icon_gr.
+      ls_group TYPE ty_icon_gr.
 
     READ TABLE mt_icon_dir TRANSPORTING NO FIELDS
       WITH KEY i_class = is_class-id.
@@ -178,15 +223,14 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
     lo_level->next( ).
 
-    SELECT * FROM icon_gr INTO ls_group
-      WHERE langu = sy-langu AND class = is_class-id
-      ORDER BY PRIMARY KEY.
+    LOOP AT mt_icon_gr INTO ls_group
+      WHERE langu = mv_langu AND class = is_class-id.
 
       _group(
          is_group = ls_group
          iv_level = lo_level->level ).
 
-    ENDSELECT.
+    ENDLOOP.
 
     lo_level->back( ).
 
@@ -350,9 +394,49 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
   ENDMETHOD.
 
 
+  METHOD _init_icon_classes.
+
+    DATA:
+      lt_code    TYPE TABLE OF string,
+      lv_code    TYPE string,
+      ls_icon_cl TYPE ty_icon_cl.
+
+    READ REPORT c_prog_icon_cl INTO lt_code.
+    ASSERT sy-subrc = 0.
+
+    CLEAR mt_icon_cl.
+
+    LOOP AT lt_code INTO lv_code WHERE table_line CP '" *'.
+      SPLIT lv_code+2(*) AT ',' INTO ls_icon_cl-langu ls_icon_cl-id ls_icon_cl-name.
+      INSERT ls_icon_cl INTO TABLE mt_icon_cl.
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
+  METHOD _init_icon_groups.
+
+    DATA:
+      lt_code    TYPE TABLE OF string,
+      lv_code    TYPE string,
+      ls_icon_gr TYPE ty_icon_gr.
+
+    READ REPORT c_prog_icon_gr INTO lt_code.
+    ASSERT sy-subrc = 0.
+
+    CLEAR mt_icon_gr.
+
+    LOOP AT lt_code INTO lv_code WHERE table_line CP '" *'.
+      SPLIT lv_code+2(*) AT ',' INTO ls_icon_gr-langu ls_icon_gr-id ls_icon_gr-class ls_icon_gr-name.
+      INSERT ls_icon_gr INTO TABLE mt_icon_gr.
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
   METHOD _main.
 
-    DATA ls_icon_cl TYPE icon_cl.
+    DATA ls_icon_cl TYPE ty_icon_cl.
 
     " Add top node
     mo_tree->add_top_node(
@@ -360,15 +444,14 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
       iv_title = 'SAP GUI Icons' ).
 
     " Process all icon classes
-    SELECT * FROM icon_cl INTO ls_icon_cl
-      WHERE id IN mr_classes AND langu = sy-langu
-      ORDER BY PRIMARY KEY.
+    LOOP AT mt_icon_cl INTO ls_icon_cl
+      WHERE id IN mr_classes AND langu = mv_langu.
 
       _class(
         is_class = ls_icon_cl
         iv_level = 1 ).
 
-    ENDSELECT.
+    ENDLOOP.
 
     " Expand complete tree
     mo_tree->expand_all( ).
