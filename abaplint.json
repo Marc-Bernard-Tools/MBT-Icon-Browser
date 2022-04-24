@@ -22,7 +22,10 @@
 	},
 	"rules": {
 		"7bit_ascii": {
-			"exclude": [],
+			"exclude": [
+        "#mbtools#icon_browser_cl.prog.*",
+        "#mbtools#icon_browser_gr.prog.*"
+      ],
 			"severity": "Error"
 		},
 		"abapdoc": {
