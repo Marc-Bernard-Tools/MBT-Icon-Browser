@@ -8,11 +8,9 @@ and [ISO Date Format](https://www.iso.org/iso-8601-date-and-time-format.html).
 
 ## [Unreleased]
 
-### Added 
-
 ### Changed
 
-### Fixed
+- Bump MBT Base dependency
 
 ## Version [1.3.0] - 2022-04-24
 
