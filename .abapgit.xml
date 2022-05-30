@@ -20,7 +20,7 @@
     <DEPENDENCIES>
      <item>
       <NAME>mbt-base</NAME>
-      <VERSION>1.2.0</VERSION>
+      <VERSION>1.3.0</VERSION>
      </item>
     </DEPENDENCIES>
    </PACKAGING>
