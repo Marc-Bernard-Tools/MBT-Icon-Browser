@@ -6,20 +6,14 @@
    <TEXT>MBT Icon Browser (Thumbnail)</TEXT>
    <PARAMS>
     <WWWPARAMS>
-     <RELID>MI</RELID>
-     <OBJID>/MBTOOLS/MBT_ICON_BROWSER_TN</OBJID>
      <NAME>fileextension</NAME>
      <VALUE>.jpg</VALUE>
     </WWWPARAMS>
     <WWWPARAMS>
-     <RELID>MI</RELID>
-     <OBJID>/MBTOOLS/MBT_ICON_BROWSER_TN</OBJID>
      <NAME>filename</NAME>
      <VALUE>MBT_Icon_Browser_TN.jpg</VALUE>
     </WWWPARAMS>
     <WWWPARAMS>
-     <RELID>MI</RELID>
-     <OBJID>/MBTOOLS/MBT_ICON_BROWSER_TN</OBJID>
      <NAME>mimetype</NAME>
      <VALUE>image/jpeg</VALUE>
     </WWWPARAMS>
