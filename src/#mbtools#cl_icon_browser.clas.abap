@@ -284,13 +284,14 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
         io_tree  = mo_tree
         iv_level = iv_level.
 
-    IF mv_disp_n = abap_true.
-      lo_level->value = is_icon-name.
-    ELSEIF mv_disp_i = abap_true.
-      lo_level->value = is_icon-id.
-    ELSE.
-      lo_level->value = ''.
-    ENDIF.
+    CASE abap_true.
+      WHEN mv_disp_n.
+        lo_level->value = is_icon-name.
+      WHEN mv_disp_i.
+        lo_level->value = is_icon-id.
+      WHEN OTHERS.
+        lo_level->value = ''.
+    ENDCASE.
 
     mo_tree->add_detail(
       iv_icon  = is_icon-id
@@ -493,13 +494,14 @@ CLASS /mbtools/cl_icon_browser IMPLEMENTATION.
 
     ENDSELECT.
 
-    IF mv_name = abap_true.
-      SORT mt_icon_dir BY i_class i_group name.
-    ELSEIF mv_id = abap_true.
-      SORT mt_icon_dir BY i_class i_group id.
-    ELSEIF mv_text = abap_true.
-      SORT mt_icon_dir BY i_class i_group shorttext.
-    ENDIF.
+    CASE abap_true.
+      WHEN mv_name.
+        SORT mt_icon_dir BY i_class i_group name.
+      WHEN mv_id.
+        SORT mt_icon_dir BY i_class i_group id.
+      WHEN mv_text.
+        SORT mt_icon_dir BY i_class i_group shorttext.
+    ENDCASE.
 
   ENDMETHOD.
 ENDCLASS.
