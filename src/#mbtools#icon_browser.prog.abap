@@ -88,7 +88,7 @@ SELECTION-SCREEN:
 
 *-----------------------------------------------------------------------
 
-CONSTANTS:
+CONSTANTS
   c_title TYPE string VALUE /mbtools/cl_tool_bc_icon=>c_tool-title.
 
 DATA:
